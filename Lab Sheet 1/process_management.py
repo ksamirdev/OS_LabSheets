@@ -34,8 +34,6 @@ def task1_process_creation():
 
     print()
 
-task1_process_creation()
-
 def task2_command_execution():
     print("=" * 50)
     print("TASK 2: Command Execution Using exec()")
@@ -86,8 +84,6 @@ def task2_command_execution():
 
     print()
 
-task2_command_execution()
-
 def task3_zombie_orphan():
     print("=" * 50)
     print("TASK 3: Zombie & Orphan Processes")
@@ -106,7 +102,6 @@ def task3_zombie_orphan():
         # Parent doesn't wait - creates zombie
         print(f"Parent: Created zombie child with PID={pid_zombie}")
         print("Zombie child created. Parent will not call wait().")
-        print("Run 'ps -el | grep defunct' in another terminal to see zombie")
         time.sleep(3)  # Give time to check zombie
     
     print("\nCreating Orphan Process...")
@@ -119,21 +114,19 @@ def task3_zombie_orphan():
         print("Orphan child sleeping for 5 seconds...")
         time.sleep(5)
         print(f"Orphan Child: Now Parent PID={os.getppid()} (should be 1 - init)")
-        os._exit(0)
     else:
         # Parent exits immediately - creates orphan
         print(f"Parent: Created orphan child with PID={pid_orphan}")
         print("Parent exiting immediately, creating orphan...")
-        os._exit(0)  # Parent exits, child becomes orphan
 
-task3_zombie_orphan()
 
 def task4_proc_inspection():
     print("=" * 50)
     print("TASK 4: Inspecting Process Info from /proc")
     print("=" * 50)
     
-    pid = input("Enter PID to inspect: ").strip()
+    current_pid = os.getpid()
+    pid = input(f"Enter PID to inspect (or press Enter for current process {current_pid}): ").strip()
     
     proc_path = f"/proc/{pid}"
 
