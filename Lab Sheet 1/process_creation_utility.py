@@ -1,3 +1,5 @@
+import os
+
 N = 3 # Number of child processes
 
 children_pids = []
