@@ -1,0 +1,93 @@
+==================================================
+TASK 1: Process Creation Utility
+==================================================
+Parent: Created child 1 with PID=15345
+Parent: Created child 2 with PID=15346
+Parent: Created child 3 with PID=15347
+Child 1: PID=15345, Parent PID=15344, Message='Hello from child 1'
+Child 2: PID=15346, Parent PID=15344, Message='Hello from child 2'
+Child 3: PID=15347, Parent PID=15344, Message='Hello from child 3'
+
+Parent (PID=15344) waiting for all children to finish...
+Parent: Child with PID=15345 finished with status=0
+Parent: Child with PID=15346 finished with status=0
+Parent: Child with PID=15347 finished with status=0
+
+
+==================================================
+TASK 2: Command Execution Using exec()
+==================================================
+Parent: Created child 1 with PID=15349 for command: ls -la
+Parent: Created child 2 with PID=15350 for command: date
+Parent: Created child 3 with PID=15351 for command: pwd
+Child 1: PID=15349, Parent PID=15348
+Executing command: ls -la
+total 176
+drwxr-xr-x@ 16 samir  staff    512  2 Nov 13:47 .
+drwx------@ 23 samir  staff    736 30 Oct 19:50 ..
+-rw-r--r--@  1 samir  staff    338 19 Aug 12:46 copy-file-content.py
+-rw-r--r--@  1 samir  staff    267 19 Aug 11:46 file-stat.py
+-rw-r--r--@  1 samir  staff     13  6 Sep 22:33 file1.txt
+-rw-r--r--@  1 samir  staff     12 19 Aug 11:42 file2.txt
+-rw-r--r--@  1 samir  staff  35921 12 Aug 12:09 index.html
+-rw-r--r--@  1 samir  staff    564  6 Sep 22:33 main.go
+-rw-r--r--@  1 samir  staff   6060  2 Nov 13:53 main.py
+-rw-r--r--@  1 samir  staff   1392 12 Sep 19:50 main.ts
+drwxr-xr-x@  9 samir  staff    288 10 Sep 11:34 node_modules
+-rw-r--r--@  1 samir  staff    390 10 Sep 11:34 package.json
+-rw-r--r--@  1 samir  staff     30 19 Aug 11:47 pid.py
+-rw-r--r--@  1 samir  staff   1841 10 Sep 11:34 pnpm-lock.yaml
+-rw-r--r--@  1 samir  staff    934 12 Aug 12:12 style.css
+-rw-r--r--@  1 samir  staff    612 12 Sep 17:09 tsconfig.json
+Child 2: PID=15350, Parent PID=15348
+Executing command: date
+Mon Dec 10 15:20:35 UTC 2023
+Child 3: PID=15351, Parent PID=15348
+Executing command: pwd
+/Users/samir/Desktop/class
+
+Parent (PID=15348) waiting for all children to finish...
+Parent: Child with PID=15349 finished with exit status=0
+Parent: Child with PID=15350 finished with exit status=0
+Parent: Child with PID=15351 finished with exit status=0
+
+
+==================================================
+TASK 3: Zombie & Orphan Processes
+==================================================
+Creating Zombie Process...
+Parent: Created zombie child with PID=15353
+Zombie Child: PID=15353, Parent PID=15352
+Zombie child exiting immediately...
+Zombie child created. Parent will not call wait().
+
+Creating Orphan Process...
+Parent: Created orphan child with PID=15354
+Parent continues execution (orphan child will be adopted by init)
+Orphan Child: PID=15354, Parent PID=15352
+Orphan child will exit in 2 seconds...
+
+Orphan Child: Now Parent PID=1 (should be 1 - init)
+
+==================================================
+TASK 4: Inspecting Process Info from /proc
+==================================================
+Enter PID to inspect (or press Enter for current process 15352): 
+Using current process PID: 15352
+
+Inspecting process 15352 from /proc:
+
+--- Process Status ---
+Name:   python3
+State:  S (sleeping)
+Pid:    15352
+PPid:   15100
+VmRSS:  11876 kB
+
+--- Executable Path ---
+Executable: /usr/bin/python3.8
+
+--- Open File Descriptors ---
+FD 0 -> /dev/pts/2
+FD 1 -> /dev/pts/2
+FD 2 -> /dev/pts/2
